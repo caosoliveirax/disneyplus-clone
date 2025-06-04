@@ -1,7 +1,11 @@
 @use 'vars';
+@use 'header';
 @use 'hero';
 @use 'shows';
 @use 'plans';
+@use 'available-devices';
+@use 'faq';
+@use 'footer';
 
 @font-face {
     font-family: Avenir;
@@ -40,15 +44,26 @@ body {
 
 
 .text--small {
-    @include text(12px)
+    @include text(12px);
+    @media (max-width: 768px) {
+            @include text(11px)
+        }
 }
 
 .text {
     @include text;
+
+    @media (max-width: 768px) {
+            @include text(14px)
+        }
 }
 
 .text--big {
     @include text(18px);
+
+    @media (max-width: 768px) {
+            @include text(15px)
+        }
 }
 
 .link-text {
@@ -59,26 +74,113 @@ body {
 
 .title {
     @include title;
+
+    @media (max-width: 768px) {
+            @include title(24px)
+        }
 }
 
 .title--small {
     @include title(28px);
+
+    @media (max-width: 768px) {
+            @include title(22px)
+        }
 }
 
 .title--big {
     @include title(44px);
+
+    @media (max-width: 768px) {
+            @include title(26px)
+        }
 }
 
 .button {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 60px;
     font-size: 18px;
     color: vars.$secundary-text-color;
-    background-color: #6421FF;
+    background-color: vars.$button-primary-color;
     text-transform: uppercase;
     border-radius: 4px;
-    margin-top: 2vh;
-    margin-bottom: 8px;
     cursor: pointer;
+    text-decoration: none;
+    padding: 8px 14px;
+    letter-spacing: 1px;
+    border: 1px solid vars.$bg-color;
+
+    &:hover {
+            background-color: lighten(vars.$button-primary-color, 3%)
+        }
+
+    &--secundary {
+        background-color: vars.$button-secundary-color;
+        border-color: vars.$button-secundary-color;
+
+        &:hover {
+            background-color: lighten(vars.$button-secundary-color, 3%)
+        }
+    }
+
+    &--dark {
+        background-color:  rgba(vars.$button-dark-color ,0.8);
+        border-color: vars.$secundary-text-color;
+
+        &:hover {
+            background-color: vars.$secundary-text-color;
+            color: vars.$bg-color;
+        }
+    }
+}
+
+.image-text-section {
+    padding: 5.6vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+
+    @media (max-width: 768px) {
+            display: block;
+        }
+
+    img {
+        max-width: 100%;
+    }
+
+    &__text_container {
+        padding: 0 2vw;
+        
+        h2 {
+            margin-bottom: 24px;
+        }
+    }
+
+    &--image-full-width {
+        display: block;
+        position: relative;
+        img {
+            width: 100%;
+        }
+
+        &__text_container {
+            position: absolute;
+            top: 0vw;
+            left: 50%;
+            height: 100%;
+            width: calc(50% - 5.6vw);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            @media (max-width: 768px) {
+            position: relative;
+            left: 0;
+            width: 100%;
+        }
+        }
+    }
 }

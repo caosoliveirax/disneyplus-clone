@@ -11,6 +11,10 @@
         list-style: none;
         margin-top: 44px;
 
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr 1fr;
+        }
+
         &--is-active {
             display: grid;
         }
@@ -27,6 +31,12 @@
         display: flex;
         justify-content: center;
 
+        @media (max-width: 768px) {
+            white-space: nowrap;
+            overflow-x: scroll;
+            padding-left: 20px;
+        }
+
         &__button {
             background: none;
             color: vars.$secundary-text-color;
@@ -41,6 +51,10 @@
             &--is-active {
                 border-color: vars.$secundary-text-color;
             }
+
+            @media (max-width: 768px) {
+            font-size: 16px;
+        }
         }
     }
 }
