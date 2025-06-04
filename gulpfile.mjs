@@ -1,9 +1,16 @@
 import gulp from 'gulp';
 import imagemin from 'gulp-imagemin';
+import uglify from 'gulp-uglify';
 import * as dartSass from 'sass';
 import gulpSass from 'gulp-sass';
 
 const sass = gulpSass(dartSass);
+
+function scripts() {
+    return gulp.src('./src/scripts/*.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('./dist/js'))
+}
 
 function images() {
     return gulp.src('./src/images/**/*', { encoding:false,})
@@ -20,9 +27,11 @@ function styles() {
 function watchFiles() {
     gulp.watch('./src/styles/**/*.scss', styles);
     gulp.watch('./src/images', images);
+    gulp.watch('./src/scripts/*.js', scripts)
 }
 
-export {styles, images};
+export {styles, images, scripts};
 
-gulp.task('default', gulp.series(
-    gulp.parallel(styles, images), watchFiles));
+export const build = gulp.series(gulp.parallel(styles, images, scripts));
+
+export default gulp.series(build, watchFiles);
